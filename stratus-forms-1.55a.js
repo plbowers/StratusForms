@@ -835,7 +835,7 @@ $.fn.StratusFormsTranslate = function (options)
                     type = "text";
                 }
                 if (value != undefined && type.toUpperCase() != "BUTTON") {
-                    formVal = formVal = $(this).attr("listFieldName");
+                    formVal = $(this).attr("listFieldName");
                     if ((type.toUpperCase() != "RADIO" && type.toUpperCase() != "CHECKBOX")) {
                         formDataObject[id] = encodedValue;
                     } else {
@@ -858,8 +858,12 @@ $.fn.StratusFormsTranslate = function (options)
 
                     if (formVal != undefined) {
                         if ($(this).attr("isDate") == "yes") {
-                            var thisDate = new Date(value);
-                            value = thisDate.toISOString();
+			    if (value) {
+                                var thisDate = new Date(value);
+                                value = thisDate.toISOString();
+			    } else {
+				value = null;
+			    }
                         }
                         if ((encryptField && !gStratusFormsDecryptFailed) || !encryptField) {
                             StratusFormsValuePairs.push([$(this).attr("listFieldName"), CDataWrap(value)]);
